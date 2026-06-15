@@ -9,7 +9,7 @@ on:
     - main
 
 env:
-  IMAGE_NAME: 18bit048/kargo-app
+  IMAGE_NAME: 18bit048/kargo-repo
 
 jobs:
   lint:

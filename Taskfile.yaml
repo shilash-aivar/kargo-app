@@ -1,7 +1,7 @@
 version: "3"
 
 vars:
-  IMAGE: 18bit048/kargo-app
+  IMAGE: 18bit048/kargo-repo
   TAG: '{{.TAG | default "dev"}}'
 
 tasks:
