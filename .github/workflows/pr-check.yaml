@@ -1,0 +1,36 @@
+name: PR Check
+
+on:
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  validate:
+    name: Validate PR
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Check Dockerfile builds
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: false
+        tags: kargo-demo:pr-${{ github.event.pull_request.number }}
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+        cache: pip
+        cache-dependency-path: app/requirements.txt
+
+    - name: Install dependencies
+      run: pip install -r app/requirements.txt
+
+    - name: Smoke test app starts
+      run: |
+        python3 -m uvicorn app.main:app --port 8000 &
+        sleep 3
+        curl -sf http://localhost:8000/healthz
+        kill %1

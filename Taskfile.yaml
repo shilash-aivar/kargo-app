@@ -1,0 +1,47 @@
+version: "3"
+
+vars:
+  IMAGE: ghcr.io/your-org/kargo-demo
+  TAG: '{{.TAG | default "dev"}}'
+
+tasks:
+  default:
+    desc: List all tasks
+    cmds:
+    - task --list
+
+  dev:
+    desc: Run the app locally
+    cmds:
+    - python3 -m uvicorn app.main:app --reload --port 8000
+
+  install:
+    desc: Install Python dependencies
+    cmds:
+    - pip3 install -r app/requirements.txt
+
+  build:
+    desc: Build Docker image
+    cmds:
+    - docker build -t {{.IMAGE}}:{{.TAG}} .
+
+  push:
+    desc: Push Docker image
+    deps: [build]
+    cmds:
+    - docker push {{.IMAGE}}:{{.TAG}}
+
+  release:
+    desc: Tag, build, and push a versioned image (requires TAG=vX.Y.Z)
+    cmds:
+    - |
+      if [ -z "{{.TAG}}" ] || [ "{{.TAG}}" = "dev" ]; then
+        echo "Usage: task release TAG=v0.1.0"; exit 1
+      fi
+    - git tag {{.TAG}}
+    - git push origin {{.TAG}}
+
+  lint:
+    desc: Lint Python code
+    cmds:
+    - python3 -m py_compile app/main.py && echo "OK"
