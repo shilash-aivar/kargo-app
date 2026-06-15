@@ -1,7 +1,7 @@
 version: "3"
 
 vars:
-  IMAGE: ghcr.io/your-org/kargo-demo
+  IMAGE: 18bit048/kargo-app
   TAG: '{{.TAG | default "dev"}}'
 
 tasks:
