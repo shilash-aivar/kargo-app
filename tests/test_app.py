@@ -6,7 +6,7 @@ client = TestClient(app)
 
 def test_healthz():
     # TODO: add assertions
-    pass
+    pass 
 
 
 def test_info():
