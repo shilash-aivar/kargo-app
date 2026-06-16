@@ -3,13 +3,13 @@ name: CI
 on:
   pull_request:
     branches:
-    - dev
+    - stage
   #push:
    # branches:
    # - dev
 
 env:
-  IMAGE_NAME: 18bit048/kargo-repo-dev
+  IMAGE_NAME: 18bit048/kargo-repo-stage
 
 jobs:
   lint:
