@@ -3,7 +3,7 @@ name: cd
 on:
   push:
     branches:          # ← was "branch" (typo, trigger never fired)
-      - "main"
+      - "dev"
 
 env:
   IMAGE_NAME: 18bit048/kargo-repo-dev   # ← pick one username and use it everywhere
