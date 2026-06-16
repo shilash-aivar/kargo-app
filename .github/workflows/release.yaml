@@ -44,7 +44,7 @@ jobs:
         context: .
         push: true
         platforms: linux/amd64,linux/arm64
-        tags: ${{ github.sha }}
+        tags: shilash-aivar/kargo-repo-dev:${{ github.sha }}
         labels: ${{ steps.meta.outputs.labels }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
